@@ -10,7 +10,6 @@ void main() {
 class MabbitBMIApp extends StatelessWidget {
   const MabbitBMIApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     final darkTheme = ThemeData.dark().copyWith(
@@ -25,13 +24,44 @@ class MabbitBMIApp extends StatelessWidget {
       ),
     );
 
+    final lightTheme = ThemeData.light().copyWith(
+      primaryColor: const Color.fromARGB(255, 222, 96, 128),
+      cardColor: const Color.fromARGB(255, 192, 192, 210),
+      toggleableActiveColor: const Color.fromARGB(255, 108, 108, 168),
+      canvasColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      appBarTheme: const AppBarTheme(
+        color: Color.fromARGB(255, 108, 108, 168),
+      ),
+    );
+
     return MaterialApp(
       title: bmiTitle,
-      theme: AppThemeData.lightThemeData,
-      darkTheme: darkTheme.copyWith(
-        textTheme: GoogleFonts.firaSansTextTheme(darkTheme.textTheme),
+      theme: lightTheme.copyWith(
+        textTheme: GoogleFonts.firaSansTextTheme(lightTheme.textTheme).copyWith(
+          bodyLarge: const TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
+          ),
+          displayLarge: const TextStyle(
+            fontSize: 64.0,
+            fontWeight: FontWeight.w900,
+            color: Colors.black,
+          ),
+        ),
       ),
-      home: const MyHomePage(title: bmiTitle),
+      darkTheme: darkTheme.copyWith(
+        textTheme: GoogleFonts.firaSansTextTheme(darkTheme.textTheme).copyWith(
+          bodyLarge: const TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      home: const BMIMainPage(title: bmiTitle),
     );
   }
 }

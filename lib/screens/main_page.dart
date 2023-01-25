@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.title});
+class BMIMainPage extends StatelessWidget {
+  const BMIMainPage({super.key, required this.title});
 
   final String title;
 
@@ -46,12 +46,23 @@ class MyHomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text('HEIGHT'),
+                        Text(
+                          'HEIGHT',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text('183'),
-                            Text('cm'),
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(
+                              '183',
+                              style: Theme.of(context).textTheme.displayLarge,
+                            ),
+                            Text(
+                              'cm',
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
                           ],
                         ),
                         const Slider(
@@ -71,13 +82,23 @@ class MyHomePage extends StatelessWidget {
                   ReusableCard(
                     selected: false,
                     child: Column(
-                      children: const [Text('WEIGHT')],
+                      children: [
+                        Text(
+                          'WEIGHT',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ],
                     ),
                   ),
                   ReusableCard(
                     selected: false,
                     child: Column(
-                      children: const [Text('AGE')],
+                      children: [
+                        Text(
+                          'AGE',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ],
                     ),
                   )
                 ],
@@ -86,15 +107,17 @@ class MyHomePage extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
-                    onTap: null,
-                    child: Container(
-                      height: 80.0,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      child: const Text('CALCULATE'),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      print('Calculate Clicked!');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      minimumSize: const Size(0.0, 80.0),
+                    ),
+                    child: Text(
+                      'CALCULATE',
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
                 ),
@@ -164,10 +187,7 @@ class GenderSelector extends StatelessWidget {
           const SizedBox(height: 15.0),
           Text(
             gender == Gender.male ? 'MALE' : 'FEMALE',
-            style: const TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ],
       ),
