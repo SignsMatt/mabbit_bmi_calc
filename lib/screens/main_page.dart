@@ -147,7 +147,7 @@ class ReusableCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Card(
           color: selected
-              ? Theme.of(context).toggleableActiveColor
+              ? Theme.of(context).highlightColor
               : Theme.of(context).cardColor,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(

@@ -1,7 +1,7 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mabbit_bmi_calc/screens/main_page.dart';
-import 'constants.dart';
 
 void main() {
   runApp(const MabbitBMIApp());
@@ -12,56 +12,54 @@ class MabbitBMIApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final darkTheme = ThemeData.dark().copyWith(
-      primaryColor: const Color(0xFFEB1555),
-      cardColor: const Color(0xFF111328),
-      toggleableActiveColor: const Color(0xFF1D1E33),
-      canvasColor: const Color(0xFF090D22),
-      backgroundColor: const Color(0xFF090D22),
-      scaffoldBackgroundColor: const Color(0xFF090D22),
-      appBarTheme: const AppBarTheme(
-        color: Color(0xFF1D1E33),
-      ),
-    );
-
-    final lightTheme = ThemeData.light().copyWith(
-      primaryColor: const Color.fromARGB(255, 222, 96, 128),
-      cardColor: const Color.fromARGB(255, 192, 192, 210),
-      toggleableActiveColor: const Color.fromARGB(255, 108, 108, 168),
-      canvasColor: const Color.fromARGB(255, 255, 255, 255),
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      appBarTheme: const AppBarTheme(
-        color: Color.fromARGB(255, 108, 108, 168),
-      ),
-    );
-
     return MaterialApp(
-      title: bmiTitle,
-      theme: lightTheme.copyWith(
-        textTheme: GoogleFonts.firaSansTextTheme(lightTheme.textTheme).copyWith(
-          bodyLarge: const TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
-          ),
-          displayLarge: const TextStyle(
-            fontSize: 64.0,
-            fontWeight: FontWeight.w900,
-            color: Colors.black,
-          ),
+      debugShowCheckedModeBanner: false,
+      theme: FlexThemeData.light(
+        colors: const FlexSchemeColor(
+          primary: Color(0xffeb1555),
+          primaryContainer: Color(0xffd0e4ff),
+          secondary: Color(0xff090d22),
+          secondaryContainer: Color(0xffffdbcf),
+          tertiary: Color(0xff1d1e33),
+          tertiaryContainer: Color(0xff95f0ff),
+          appBarColor: Color(0xffffdbcf),
+          error: Color(0xffb00020),
         ),
-      ),
-      darkTheme: darkTheme.copyWith(
-        textTheme: GoogleFonts.firaSansTextTheme(darkTheme.textTheme).copyWith(
-          bodyLarge: const TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
+        usedColors: 2,
+        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+        blendLevel: 9,
+        subThemesData: const FlexSubThemesData(
+          blendOnLevel: 10,
+          blendOnColors: false,
         ),
+        visualDensity: FlexColorScheme.comfortablePlatformDensity,
+        fontFamily: GoogleFonts.firaSans().fontFamily,
       ),
-      home: const BMIMainPage(title: bmiTitle),
+      darkTheme: FlexThemeData.dark(
+        colors: const FlexSchemeColor(
+          primary: Color(0xffeb1555),
+          primaryContainer: Color(0xffd0e4ff),
+          secondary: Color(0xff090d22),
+          secondaryContainer: Color(0xffffdbcf),
+          tertiary: Color(0xff1d1e33),
+          tertiaryContainer: Color(0xff95f0ff),
+          appBarColor: Color(0xffffdbcf),
+          error: Color(0xffb00020),
+        ).defaultError.toDark(10, false),
+        usedColors: 2,
+        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+        blendLevel: 15,
+        subThemesData: const FlexSubThemesData(
+          blendOnLevel: 20,
+        ),
+        visualDensity: FlexColorScheme.comfortablePlatformDensity,
+        fontFamily: GoogleFonts.firaSans().fontFamily,
+      ),
+      themeMode: ThemeMode.system,
+
+      home: const BMIMainPage(
+        title: 'BMI Calculator',
+      ),
     );
   }
 }
