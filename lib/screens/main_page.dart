@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mabbit_bmi_calc/reusable_cards.dart';
 
-class BMIMainPage extends StatelessWidget {
+
+class BMIMainPage extends StatefulWidget {
   const BMIMainPage({super.key, required this.title});
 
   final String title;
 
-//   @override
-//   State<MyHomePage> createState() => _MyHomePageState();
-// }
+  @override
+  State<BMIMainPage> createState() => _BMIMainPageState();
+}
 
-// class _MyHomePageState extends State<MyHomePage> {
-//   int _counter = 0;
-
-//   void _incrementCounter() {
-//     setState(() {
-//       _counter++;
-//     });
-//   }
+class _BMIMainPageState extends State<BMIMainPage> {
+  double sliderValue = 180.0;
+  bool isMaleSelected = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: Center(
         child: Column(
@@ -31,46 +33,27 @@ class BMIMainPage extends StatelessWidget {
           children: [
             Expanded(
               child: Row(
-                children: const [
-                  GenderSelector(gender: Gender.male, selected: true),
-                  GenderSelector(gender: Gender.female, selected: false),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Row(
                 children: [
-                  ReusableCard(
-                    selected: false,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'HEIGHT',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.baseline,
-                          textBaseline: TextBaseline.alphabetic,
-                          children: [
-                            Text(
-                              '183',
-                              style: Theme.of(context).textTheme.displayLarge,
-                            ),
-                            Text(
-                              'cm',
-                              style: Theme.of(context).textTheme.bodyLarge,
-                            ),
-                          ],
-                        ),
-                        const Slider(
-                            value: 183.0,
-                            onChanged: null,
-                            min: 100.0,
-                            max: 220.0)
-                      ],
+                  Expanded(
+                    child: GenderSelector(
+                      gender: Gender.male,
+                      selected: isMaleSelected,
+                      onTap: () {
+                        setState(() {
+                          isMaleSelected = true;
+                        });
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: GenderSelector(
+                      gender: Gender.female,
+                      selected: !isMaleSelected,
+                      onTap: () {
+                        setState(() {
+                          isMaleSelected = false;
+                        });
+                      },
                     ),
                   ),
                 ],
@@ -79,26 +62,75 @@ class BMIMainPage extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  ReusableCard(
-                    selected: false,
-                    child: Column(
-                      children: [
-                        Text(
-                          'WEIGHT',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                      ],
+                  Expanded(
+                    child: ReusableCard(
+                      selected: false,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'HEIGHT',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            children: [
+                              Text(
+                                sliderValue.toStringAsFixed(0),
+                                style: Theme.of(context).textTheme.headlineLarge,
+                              ),
+                              Text(
+                                'cm',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ],
+                          ),
+                          Slider(
+                              value: sliderValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  sliderValue = value;
+                                });
+                              },
+                              min: 100.0,
+                              max: 220.0)
+                        ],
+                      ),
                     ),
                   ),
-                  ReusableCard(
-                    selected: false,
-                    child: Column(
-                      children: [
-                        Text(
-                          'AGE',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                      ],
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ReusableCard(
+                      selected: false,
+                      child: Column(
+                        children: [
+                          Text(
+                            'WEIGHT',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: ReusableCard(
+                      selected: false,
+                      child: Column(
+                        children: [
+                          Text(
+                            'AGE',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -109,15 +141,17 @@ class BMIMainPage extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      print('Calculate Clicked!');
+                      //Navigate to next screen
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                       minimumSize: const Size(0.0, 80.0),
                     ),
                     child: Text(
                       'CALCULATE',
-                      style: Theme.of(context).textTheme.bodyLarge,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Colors.white,
+                          ),
                     ),
                   ),
                 ),
@@ -126,73 +160,7 @@ class BMIMainPage extends StatelessWidget {
           ],
         ),
       ),
+      backgroundColor: Theme.of(context).colorScheme.background,
     );
   }
 }
-
-class ReusableCard extends StatelessWidget {
-  final bool selected;
-  final Widget? child;
-
-  const ReusableCard({
-    Key? key,
-    required this.selected,
-    required this.child,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(
-          color: selected
-              ? Theme.of(context).highlightColor
-              : Theme.of(context).cardColor,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: child,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class GenderSelector extends StatelessWidget {
-  const GenderSelector(
-      {super.key, required this.gender, required this.selected});
-
-  final Gender gender;
-  final bool selected;
-
-  @override
-  Widget build(BuildContext context) {
-    return ReusableCard(
-      selected: selected,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            gender == Gender.male
-                ? FontAwesomeIcons.mars
-                : FontAwesomeIcons.venus,
-            size: 72.0,
-          ),
-          const SizedBox(height: 15.0),
-          Text(
-            gender == Gender.male ? 'MALE' : 'FEMALE',
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-enum Gender { male, female }
