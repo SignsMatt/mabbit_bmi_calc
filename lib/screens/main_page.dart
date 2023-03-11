@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mabbit_bmi_calc/reusable_cards.dart';
-
+import 'package:mabbit_bmi_calc/controls/reusable_cards.dart';
+import 'package:mabbit_bmi_calc/controls/round_iconbutton.dart';
+import 'package:mabbit_bmi_calc/screens/results_page.dart';
 
 class BMIMainPage extends StatefulWidget {
   const BMIMainPage({super.key, required this.title});
@@ -12,8 +13,10 @@ class BMIMainPage extends StatefulWidget {
 }
 
 class _BMIMainPageState extends State<BMIMainPage> {
-  double sliderValue = 180.0;
   bool isMaleSelected = true;
+  double height = 180.0;
+  int weight = 60;
+  int age = 40;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +30,12 @@ class _BMIMainPageState extends State<BMIMainPage> {
           ),
         ],
       ),
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Top Row: Gender Selector
             Expanded(
               child: Row(
                 children: [
@@ -59,6 +64,7 @@ class _BMIMainPageState extends State<BMIMainPage> {
                 ],
               ),
             ),
+            // Second Row: Height Slider
             Expanded(
               child: Row(
                 children: [
@@ -71,7 +77,7 @@ class _BMIMainPageState extends State<BMIMainPage> {
                         children: [
                           Text(
                             'HEIGHT',
-                            style: Theme.of(context).textTheme.titleLarge,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -79,20 +85,20 @@ class _BMIMainPageState extends State<BMIMainPage> {
                             textBaseline: TextBaseline.alphabetic,
                             children: [
                               Text(
-                                sliderValue.toStringAsFixed(0),
-                                style: Theme.of(context).textTheme.headlineLarge,
+                                height.toStringAsFixed(0),
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
                               Text(
                                 'cm',
-                                style: Theme.of(context).textTheme.titleLarge,
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ],
                           ),
                           Slider(
-                              value: sliderValue,
+                              value: height,
                               onChanged: (value) {
                                 setState(() {
-                                  sliderValue = value;
+                                  height = value;
                                 });
                               },
                               min: 100.0,
@@ -104,6 +110,7 @@ class _BMIMainPageState extends State<BMIMainPage> {
                 ],
               ),
             ),
+            //Third Row: Weight and Age Selectors
             Expanded(
               child: Row(
                 children: [
@@ -111,10 +118,51 @@ class _BMIMainPageState extends State<BMIMainPage> {
                     child: ReusableCard(
                       selected: false,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             'WEIGHT',
-                            style: Theme.of(context).textTheme.titleLarge,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.baseline,
+                              textBaseline: TextBaseline.alphabetic,
+                              children: [
+                                Text(
+                                  '$weight',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                                Text(
+                                  'kg',
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundIconButton(
+                                icon: const Icon(Icons.add),
+                                onPressed: () {
+                                  setState(() {
+                                    weight++;
+                                  });
+                                },
+                              ),
+                              const SizedBox(width: 10.0),
+                              RoundIconButton(
+                                icon: const Icon(Icons.remove),
+                                onPressed: () {
+                                  setState(() {
+                                    weight--;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -127,7 +175,41 @@ class _BMIMainPageState extends State<BMIMainPage> {
                         children: [
                           Text(
                             'AGE',
-                            style: Theme.of(context).textTheme.titleLarge,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '$age',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundIconButton(
+                                icon: const Icon(Icons.add),
+                                onPressed: () {
+                                  setState(() {
+                                    age++;
+                                  });
+                                },
+                              ),
+                              const SizedBox(width: 10.0),
+                              RoundIconButton(
+                                icon: const Icon(Icons.remove),
+                                onPressed: () {
+                                  setState(() {
+                                    age--;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -136,12 +218,17 @@ class _BMIMainPageState extends State<BMIMainPage> {
                 ],
               ),
             ),
+            //Fourth Row: Calculate Button
             Row(
               children: [
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      //Navigate to next screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ResultsPage()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
@@ -149,7 +236,7 @@ class _BMIMainPageState extends State<BMIMainPage> {
                     ),
                     child: Text(
                       'CALCULATE',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: Colors.white,
                           ),
                     ),
@@ -160,7 +247,7 @@ class _BMIMainPageState extends State<BMIMainPage> {
           ],
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      
     );
   }
 }

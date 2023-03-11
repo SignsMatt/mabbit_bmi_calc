@@ -7,6 +7,8 @@ const ColorScheme lightScheme = ColorScheme(
   onPrimary: Color(0xffffffff),
   secondary: Color(0xff090d22),
   onSecondary: Color(0xffffffff),
+  tertiary: Color(0xFF4C4F5E),
+  onTertiary: Colors.white,
   error: Colors.red,
   onError: Colors.white,
   background: Color(0xFF090D22),
@@ -22,6 +24,8 @@ const ColorScheme darkScheme = ColorScheme(
   onPrimary: Color(0xffffffff),
   secondary: Color(0xff090d22),
   onSecondary: Color(0xffffffff),
+  tertiary: Color(0xFF4C4F5E),
+  onTertiary: Colors.white,
   error: Colors.red,
   onError: Colors.white,
   background: Color(0xFF090D22),
@@ -32,10 +36,11 @@ const ColorScheme darkScheme = ColorScheme(
 );
 
 TextTheme textThemes = const TextTheme(
-  titleLarge: TextStyle(
+  bodyLarge: TextStyle(
     fontWeight: FontWeight.bold,
+    fontSize: 20.0,
   ),
-  headlineLarge: TextStyle(
+  titleLarge: TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 50.0,
   ),
@@ -51,4 +56,5 @@ ThemeData darkTheme = ThemeData(
   colorScheme: darkScheme,
   fontFamily: GoogleFonts.firaSans().fontFamily,
   textTheme: textThemes,
+  
 );

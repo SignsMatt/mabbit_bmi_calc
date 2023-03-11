@@ -59,7 +59,7 @@ class GenderSelector extends StatelessWidget {
             const SizedBox(height: 15.0),
             Text(
               gender == Gender.male ? 'MALE' : 'FEMALE',
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ],
         ),
