@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mabbit_bmi_calc/screens/main_page.dart';
+import 'package:mabbit_bmi_calc/screens/input_page.dart';
 import 'package:mabbit_bmi_calc/theming.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MabbitBMIApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
-      home: const BMIMainPage(
+      home: const InputPage(
         title: 'BMI Calculator',
       ),
     );

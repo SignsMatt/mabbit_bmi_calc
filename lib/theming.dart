@@ -11,8 +11,8 @@ const ColorScheme lightScheme = ColorScheme(
   onTertiary: Colors.white,
   error: Colors.red,
   onError: Colors.white,
-  background: Color(0xFF090D22),
-  onBackground: Colors.white,
+  background: Colors.white,
+  onBackground: Colors.black,
   surface: Color(0xFF111328),
   onSurface: Colors.white,
   surfaceVariant: Color(0xFF1D1E33),
@@ -40,7 +40,7 @@ TextTheme textThemes = const TextTheme(
     fontWeight: FontWeight.bold,
     fontSize: 20.0,
   ),
-  titleLarge: TextStyle(
+  displayMedium: TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 50.0,
   ),

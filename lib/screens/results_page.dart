@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mabbit_bmi_calc/controls/reusable_cards.dart';
+import 'package:mabbit_bmi_calc/controls/reusable_card.dart';
+import 'package:mabbit_bmi_calc/controls/settings_button.dart';
 
 class ResultsPage extends StatelessWidget {
   const ResultsPage({super.key});
@@ -9,36 +10,66 @@ class ResultsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Results'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {},
-          ),
+        actions: const [
+          SettingsButton(),
         ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            const Text('Your Results:'),
-            Expanded(
-              child: ReusableCard(
-                selected: false,
-                child: Column(
-                  children: const [
-                    Text('NORMAL'),
-                    Text('18.5'),
-                    Text('You have a normal body weight. Good Job!'),
-                  ],
-                ),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text('Your Results:', style: Theme.of(context).textTheme.headlineLarge,),
+          Expanded(
+            child: ReusableCard(
+              selected: false,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'NORMAL',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(color: Colors.green),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    '18.5',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  Text('You have a normal body weight. Good Job!',
+                      style: Theme.of(context).textTheme.bodyLarge),
+                ],
               ),
             ),
-            Container(
-              decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
-              height: 80.0,
-              child: const Text('RECALCULATE'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              minimumSize: const Size(double.infinity, 80.0),
+              shape: const RoundedRectangleBorder(),
             ),
-          ],
-        ),
+            child: Text(
+              'RECALCULATE',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Colors.white,
+                  ),
+            ),
+          ),
+        ],
       ),
     );
   }
